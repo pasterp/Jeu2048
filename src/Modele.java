@@ -6,6 +6,7 @@ import java.io.*;
 
 public class Modele{
     int[][] grid;
+    boolean[][] gridb;
     int[][] scores;
 
     /**
@@ -21,6 +22,7 @@ public class Modele{
      */
     public Modele(int n){
         grid = new int[n][n];
+        gridb = new boolean[n][n];
         scores = new int[3][3];
         loadScores();
         insertNew();
@@ -141,6 +143,14 @@ public class Modele{
         }
     }
 
+    private void resetGridB(){
+        for (int y=0; y<gridb.length; y++) {
+            for (int x=0; x<gridb.length; x++) {
+                gridb[y][x] = false;
+            }
+        }
+    }
+
     /**
      * Fait tous les déplacemens possibles en direction de l'offset passé en paramètres.
      * @param dirY décalage vertical
@@ -149,15 +159,18 @@ public class Modele{
      */
     private boolean move(int dirY, int dirX){
         boolean change =false, bouge=false;
+        resetGridB();
         do {
             change = false;
             for (int y=0; y<grid.length; y++) {
                 for (int x=0; x<grid.length; x++) {
                     if (grid[y][x] != 0 && (y+dirY) >= 0 && (y+dirY) < grid.length && (x+dirX) >= 0 && (x+dirX) < grid.length){
-                        if (grid[y][x] == grid[y+dirY][x+dirX] || grid[y+dirY][x+dirX]==0) {
+                        if ((!gridb[y][x] && grid[y][x] == grid[y+dirY][x+dirX]) || grid[y+dirY][x+dirX]==0) {
                             //On doit fusionner
                             grid[y+dirY][x+dirX]+=grid[y][x];
+                            gridb[y+dirY][x+dirX]=true;
                             grid[y][x]=0;
+                            gridb[y][x]=false;
                             change = true;
                             bouge=true;
                         }
