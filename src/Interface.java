@@ -20,7 +20,6 @@ public class Interface extends JFrame{
         creerWidgets();
         addWidget();
         setSize(500, 500);
-        setVisible(true);
         setTitle("2048 v0.9");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

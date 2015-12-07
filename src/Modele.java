@@ -101,6 +101,7 @@ public class Modele{
      */
     public void changeGrille(int taille){
         grid = new int[taille][taille];
+        gridb = new boolean[taille][taille];
         insertNew();
     }
 
@@ -162,7 +163,6 @@ public class Modele{
         resetGridB();
         do {
             change = false;
-            System.out.println("\n"+dirY+" "+dirX);
             for (int y=((dirY>0) ? grid.length-1 : 0); (dirY>0 && y>=0) || (dirY<=0 && y< grid.length); y=y+((dirY>0)? -1:1) )  {
                 for (int x=((dirX>0) ? grid.length-1 : 0); (dirX>0 && x>=0) || (dirX<=0 && x< grid.length); x=x+((dirX>0)? -1:1) ) {
                     if (grid[y][x] != 0 && (y+dirY) >= 0 && (y+dirY) < grid.length && (x+dirX) >= 0 && (x+dirX) < grid.length){

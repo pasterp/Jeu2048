@@ -9,12 +9,13 @@ public class Controleur implements KeyListener, ActionListener {
     Interface inter;
     Modele	modele;
 
-    public Controleur(){
-        modele = new Modele(4);
-        inter = new Interface(modele);
+    public Controleur(Modele modele){
+        this.modele = modele;
+        inter = new Interface(this.modele);
         inter.updaterGrille();
         inter.addKeyListener(this);
         inter.addListeners(this);
+        inter.setVisible(true);
     }
 
     public void nouvellePartie(int n){
@@ -93,8 +94,6 @@ public class Controleur implements KeyListener, ActionListener {
     }
 
 
-    public static void main(String[] args) {
-        Controleur test = new Controleur();
-    }
+
 
 }
