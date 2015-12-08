@@ -2,6 +2,8 @@ import java.io.*;
 
 /**
  * Created by pphelipo on 23/11/15.
+ * Github : https://github.com/pasterp/Jeu2048
+ * License : http://www.apache.org/licenses/LICENSE-2.0
  */
 
 public class Modele{
