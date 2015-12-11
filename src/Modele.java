@@ -6,6 +6,8 @@ import java.io.*;
  * License : http://www.apache.org/licenses/LICENSE-2.0
  */
 
+//TODO : Sauvegarde de l'état de la grille
+
 public class Modele{
     int[][] grid;
     boolean[][] gridb;

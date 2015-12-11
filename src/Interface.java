@@ -1,5 +1,7 @@
 /**
  * Created by pphelipo on 23/11/15.
+ * Github : https://github.com/pasterp/Jeu2048
+ * License : http://www.apache.org/licenses/LICENSE-2.0
  */
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +22,7 @@ public class Interface extends JFrame{
         creerWidgets();
         addWidget();
         setSize(500, 500);
-        setTitle("2048 v1.0");
+        setTitle("2048 v1.5");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
@@ -143,6 +145,7 @@ public class Interface extends JFrame{
                 grid[i][j].setBorder(BorderFactory.createLineBorder(new Color(185, 174, 154)));
             }
         }
+        updaterScore();
 
         if (modele.estFinie()){
             JOptionPane d = new JOptionPane();
@@ -154,6 +157,7 @@ public class Interface extends JFrame{
                         JOptionPane.WARNING_MESSAGE );
             }
             d.createDialog(this, "Gameover");
+            modele.changeGrille(modele.getTaille());
         }
     }
 
