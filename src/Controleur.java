@@ -18,15 +18,6 @@ public class Controleur implements KeyListener, ActionListener {
         inter.setVisible(true);
     }
 
-    public void nouvellePartie(int n){
-        modele = new Modele(n);
-        modele.insertNew();
-        inter.setModele(modele);
-        inter.creerWidgets();
-        inter.addWidget();
-        inter.updaterGrille();
-    }
-
 
     public void keyPressed(KeyEvent e) {
         switch(e.getKeyCode()){
@@ -93,7 +84,18 @@ public class Controleur implements KeyListener, ActionListener {
         if(e.getSource() == inter.mi_help){
             inter.afficherAide();
         }
-
+        if(e.getSource() == inter.rbmiB3){
+            modele.setBase(3);
+            inter.updaterGrille();
+        }
+        if (e.getSource() == inter.rbmiB2){
+            modele.setBase(2);
+            inter.updaterGrille();
+        }
+        if (e.getSource() == inter.miGiveUp){
+            modele.giveUp();
+            inter.updaterGrille();
+        }
     }
 
 

@@ -10,23 +10,26 @@ public class Modele{
     int[][] grid;
     boolean[][] gridb;
     int[][] scores;
+    int base;
 
     /**
      * Creer une nouvelle partie avec une taille de grille de 4x4.
      */
     public Modele(){
-        this(4);
+        this(4, 2);
     }
 
     /**
      * Creer une nouvelle partie avec une grille de taille n.
      * @param n Taille de la grille désirée
      */
-    public Modele(int n){
+    public Modele(int n, int b){
         grid = new int[n][n];
         gridb = new boolean[n][n];
         scores = new int[3][3];
+        base = b;
         loadScores();
+        insertNew();
         insertNew();
     }
 
@@ -37,7 +40,7 @@ public class Modele{
         String base = "./scores_";
         for (int i =0; i<scores.length ; i++){
             //On ouvre le fichier de score correspondant à chaque taille (4, 5, 6)
-            File scoreF =new File(base+(i+4)+"x"+(i+4)+".dat");
+            File scoreF =new File(base+(i+4)+"x"+(i+4)+"_b"+this.base+".dat");
             try{
                 //on lit les scores (3 entiers)
                 DataInputStream fichier = new DataInputStream(new BufferedInputStream(new FileInputStream(scoreF)));
@@ -60,7 +63,7 @@ public class Modele{
         String base = "./scores_";
         for (int i =0; i<scores.length ; i++){
             //On ouvre le fichier de score correspondant à chaque taille (4, 5, 6)
-            File scoreF =new File(base+(i+4)+"x"+(i+4)+".dat");
+            File scoreF =new File(base+(i+4)+"x"+(i+4)+"_b"+this.base+".dat");
             try{
                 //on ecrit les 3 scores
                 DataOutputStream fichier = new DataOutputStream(new BufferedOutputStream(new FileOutputStream(scoreF)));
@@ -113,6 +116,7 @@ public class Modele{
         grid = new int[taille][taille];
         gridb = new boolean[taille][taille];
         insertNew();
+        insertNew();
     }
 
     /**
@@ -151,7 +155,7 @@ public class Modele{
                 for (int x = 0; x < grid[y].length; x++) {
                     if (grid[y][x] == 0) {
                         if ((int) (Math.random() * nb) == 1 || nb == 1) {
-                            grid[y][x] = 2;
+                            grid[y][x] = base;
                             return;
                         }
                     }
@@ -264,4 +268,26 @@ public class Modele{
      * @return
      */
     public boolean moveDown() { return this.move(1,0); }
+
+    public void setBase(int n){
+        this.base = n;
+        changeGrille(getTaille());
+        loadScores();
+    }
+
+    /**
+     * Retourne les numeros de base pour les comparaisons (des couleurs)
+     * @param n n
+     * @return base*2^(n-1)
+     */
+    public int getBaseNombre(int n){ return base*(int)Math.pow(2, n-1); }
+
+    /**
+     * Abandonne la partie et sauvegarde le score
+     */
+    public void giveUp(){
+        submitScore();
+        changeGrille(getTaille());
+        writeScores();
+    }
 }

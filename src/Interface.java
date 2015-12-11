@@ -10,9 +10,9 @@ public class Interface extends JFrame{
     JLabel[][] grid;
     JLabel score;
     JMenuBar mmenubar;
-    JMenu mmenu, msubmenu;
-    JMenuItem mi_new, mi_scores, mi_help;
-    JRadioButtonMenuItem rbmi4, rbmi5, rbmi6;
+    JMenu mmenu, msubmenu, msubmenubase;
+    JMenuItem mi_new, mi_scores, mi_help, miGiveUp;
+    JRadioButtonMenuItem rbmi4, rbmi5, rbmi6, rbmiB2, rbmiB3;
 
     public Interface(Modele mod){
         modele = mod;
@@ -56,10 +56,26 @@ public class Interface extends JFrame{
 
         mmenu.add(msubmenu);
 
+        msubmenubase = new JMenu("Chiffre de base");
+        ButtonGroup base = new ButtonGroup();
+        rbmiB2 = new JRadioButtonMenuItem("Base 2");
+        rbmiB2.setSelected(true);
+        base.add(rbmiB2);
+        msubmenubase.add(rbmiB2);
+        rbmiB3 = new JRadioButtonMenuItem("Base 3");
+        base.add(rbmiB3);
+        msubmenubase.add(rbmiB3);
+
+        mmenu.add(msubmenubase);
+
+
         mi_help = new JMenuItem("Aide");
         mmenu.add(mi_help);
 
         mmenubar.add(mmenu);
+
+        miGiveUp = new JMenuItem("Abandonner");
+        mmenubar.add(miGiveUp);
     }
 
     public void creerWidgets(){
@@ -74,59 +90,55 @@ public class Interface extends JFrame{
         int[][] grille = modele.getGrille();
         for (int i=0; i<modele.getTaille(); i++) {
             for (int j=0; j<modele.getTaille(); j++) {
-                grid[i][j].setText(""+grille[i][j]);
+                grid[i][j].setText("" + grille[i][j]);
                 grid[i][j].setFont(new Font("Serif", Font.BOLD, 20));
                 grid[i][j].setForeground(new Color(250, 251, 243));
                 grid[i][j].setOpaque(true);
-                switch(grille[i][j]){
-                    case 0:
-                        grid[i][j].setText("");
-                        grid[i][j].setBackground(new Color(204, 192, 180));
-                        break;
 
-                    case 2:
-                        grid[i][j].setBackground(new Color(238, 228, 218));
-                        grid[i][j].setForeground(new Color(125, 118, 110));
-                        break;
-                    case 4:
-                        grid[i][j].setBackground(new Color(238, 223, 202));
-                        grid[i][j].setForeground(new Color(125, 118, 110));
-
-                        break;
-                    case 8:
-                        grid[i][j].setBackground(new Color(242, 177, 121));
-                        break;
-                    case 16:
-                        grid[i][j].setBackground(new Color(233, 140, 79));
-                        break;
-                    case 32:
-                        grid[i][j].setBackground(new Color(242, 123, 93));
-                        break;
-                    case 64:
-                        grid[i][j].setBackground(new Color(234, 89, 58));
-                        break;
-                    case 128:
-                        grid[i][j].setBackground(new Color(238, 150, 60));
-                        break;
-                    case 256:
-                        grid[i][j].setBackground(new Color(241, 208, 75));
-                        break;
-                    case 512:
-                        grid[i][j].setBackground(new Color(234, 190, 30));
-                        break;
-                    case 1024:
-                        grid[i][j].setBackground(new Color(226, 185, 19));
-                        break;
-                    case 2048:
-                        grid[i][j].setBackground(new Color(236, 193, 0));
-                        break;
-                    case 4096:
-                        grid[i][j].setBackground(new Color(169, 0, 255));
-                        break;
-
-                    default:
-                        grid[i][j].setBackground(new Color(204, 192, 180));
-                        break;
+                if (grille[i][j] == 0){
+                    grid[i][j].setText("");
+                    grid[i][j].setBackground(new Color(204, 192, 180));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(1)){
+                    grid[i][j].setBackground(new Color(238, 228, 218));
+                    grid[i][j].setForeground(new Color(125, 118, 110));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(2)){
+                    grid[i][j].setBackground(new Color(238, 223, 202));
+                    grid[i][j].setForeground(new Color(125, 118, 110));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(3)){
+                    grid[i][j].setBackground(new Color(242, 177, 121));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(4)){
+                    grid[i][j].setBackground(new Color(233, 140, 79));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(5)){
+                    grid[i][j].setBackground(new Color(242, 123, 93));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(6)){
+                    grid[i][j].setBackground(new Color(234, 89, 58));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(7)){
+                    grid[i][j].setBackground(new Color(238, 150, 60));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(8)){
+                    grid[i][j].setBackground(new Color(241, 208, 75));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(9)){
+                    grid[i][j].setBackground(new Color(234, 190, 30));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(10)){
+                    grid[i][j].setBackground(new Color(226, 185, 19));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(11)){
+                    grid[i][j].setBackground(new Color(236, 193, 0));
+                }else
+                if (grille[i][j] == modele.getBaseNombre(12)){
+                    grid[i][j].setBackground(new Color(169, 0, 255));
+                }
+                else{
+                    grid[i][j].setBackground(new Color(204, 192, 180));
                 }
                 grid[i][j].setBorder(BorderFactory.createLineBorder(new Color(185, 174, 154)));
             }
@@ -143,10 +155,6 @@ public class Interface extends JFrame{
             }
             d.createDialog(this, "Gameover");
         }
-    }
-
-    public void setModele(Modele mod){
-        modele = mod;
     }
 
     public void updaterScore(){
@@ -174,9 +182,12 @@ public class Interface extends JFrame{
         rbmi4.addActionListener(a);
         rbmi5.addActionListener(a);
         rbmi6.addActionListener(a);
+        rbmiB2.addActionListener(a);
+        rbmiB3.addActionListener(a);
         mi_new.addActionListener(a);
         mi_scores.addActionListener(a);
         mi_help.addActionListener(a);
+        miGiveUp.addActionListener(a);
     }
 
     public void betterScores(){
