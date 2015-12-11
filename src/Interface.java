@@ -11,7 +11,7 @@ public class Interface extends JFrame{
     JLabel score;
     JMenuBar mmenubar;
     JMenu mmenu, msubmenu;
-    JMenuItem mi_new, mi_scores;
+    JMenuItem mi_new, mi_scores, mi_help;
     JRadioButtonMenuItem rbmi4, rbmi5, rbmi6;
 
     public Interface(Modele mod){
@@ -55,6 +55,9 @@ public class Interface extends JFrame{
         msubmenu.add(rbmi6);
 
         mmenu.add(msubmenu);
+
+        mi_help = new JMenuItem("Aide");
+        mmenu.add(mi_help);
 
         mmenubar.add(mmenu);
     }
@@ -138,7 +141,7 @@ public class Interface extends JFrame{
                 d.showMessageDialog( this, "Partie terminée !", "Gameover",
                         JOptionPane.WARNING_MESSAGE );
             }
-            JDialog fenErr = d.createDialog(this, "Gameover");
+            d.createDialog(this, "Gameover");
         }
     }
 
@@ -147,7 +150,7 @@ public class Interface extends JFrame{
     }
 
     public void updaterScore(){
-        score.setText("Score : "+modele.scoreActuel());
+        score.setText("Score : " + modele.scoreActuel());
     }
 
     public void addWidget(){
@@ -173,26 +176,11 @@ public class Interface extends JFrame{
         rbmi6.addActionListener(a);
         mi_new.addActionListener(a);
         mi_scores.addActionListener(a);
-    }
-
-    public void afficherScores(){
-        JOptionPane d = new JOptionPane();
-        String scoreText ="";
-        for (int i = 4; i <= 6; i++){
-            scoreText += "\nGrille de "+i+"x"+i+":\n";
-            for (int s : modele.getScores(i)){
-                scoreText += "    "+s+"\n";
-            }
-        }
-        d.showMessageDialog( this, scoreText, "Scores",
-                JOptionPane.PLAIN_MESSAGE );
-        JDialog fenErr = d.createDialog(this, "Scores");
+        mi_help.addActionListener(a);
     }
 
     public void betterScores(){
         JTabbedPane tabbedPane = new JTabbedPane();
-
-
 
         JPanel[] contents = new JPanel[3];
         for (int i = 4; i <= 6; i++){
@@ -208,9 +196,16 @@ public class Interface extends JFrame{
         }
 
         JOptionPane.showOptionDialog(null,
-                new Object[] {tabbedPane},
+                new Object[]{tabbedPane},
                 "Scores",
-        JOptionPane.DEFAULT_OPTION,
-        JOptionPane.INFORMATION_MESSAGE, null, null, null);
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.INFORMATION_MESSAGE, null, null, null);
+    }
+
+    public void afficherAide(){
+        JOptionPane d = new JOptionPane();
+        d.showMessageDialog( this, "Le but du jeu est de faire un score le plus élevé possible.\nLe score est la somme des valeurs de la grille.", "Aide",
+                JOptionPane.INFORMATION_MESSAGE );
+        d.createDialog(this, "Aide");
     }
 }

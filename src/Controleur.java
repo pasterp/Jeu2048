@@ -90,6 +90,9 @@ public class Controleur implements KeyListener, ActionListener {
         if (e.getSource() == inter.mi_scores){
             inter.betterScores();
         }
+        if(e.getSource() == inter.mi_help){
+            inter.afficherAide();
+        }
 
     }
 
